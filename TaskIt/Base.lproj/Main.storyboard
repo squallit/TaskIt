@@ -49,7 +49,7 @@
                                         <color key="backgroundColor" red="0.52318610322204195" green="0.78732797723885206" blue="0.88032670454545459" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <outlet property="dateLabel" destination="DTM-sH-Say" id="Wy8-le-DaA"/>
-                                            <outlet property="subtaskLabel" destination="h2l-Gw-7X0" id="9wO-uf-qEn"/>
+                                            <outlet property="descriptionLabel" destination="h2l-Gw-7X0" id="dnt-Lh-snF"/>
                                             <outlet property="taskLabel" destination="t16-ZG-Oyl" id="l9P-HZ-dbg"/>
                                         </connections>
                                     </tableViewCell>
