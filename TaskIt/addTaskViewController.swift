@@ -1,5 +1,5 @@
 //
-//  TaskDetailViewController.swift
+//  addTaskViewController.swift
 //  TaskIt
 //
 //  Created by Son  Luu on 11/19/14.
@@ -8,24 +8,19 @@
 
 import UIKit
 
-class TaskDetailViewController: UIViewController {
+class addTaskViewController: UIViewController {
 
-     var detailTaskModel: TaskModel!
-    
+    var mainVC : ViewController!
+   
     @IBOutlet weak var taskTextField: UITextField!
-    @IBOutlet weak var subTaskTextField: UITextField!
+    @IBOutlet weak var subtaskTextField: UITextField!
     @IBOutlet weak var dueDatePicker: UIDatePicker!
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.taskTextField.text = detailTaskModel.task
-        self.subTaskTextField.text = detailTaskModel.subTask
-        self.dueDatePicker.date = detailTaskModel.date
-        
-        
+
         // Do any additional setup after loading the view.
     }
 
@@ -34,8 +29,15 @@ class TaskDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func cancelButtonTapped(sender: UIBarButtonItem) {
-        self.navigationController?.popViewControllerAnimated(true)
+    @IBAction func cancelButtonTapped(sender: UIButton) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func addTaskButtonTapped(sender: UIButton) {
+        var task = TaskModel(task: taskTextField.text, subTask: subtaskTextField.text, date: dueDatePicker.date)
+        mainVC?.taskArray.append(task)
+        self.dismissViewControllerAnimated(true, completion: nil)
+        
     }
 
     /*

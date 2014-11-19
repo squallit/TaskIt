@@ -29,6 +29,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         taskArray = [task1, task2, TaskModel(task: "Gym", subTask: "Leg Day", date: date3)]
         
+        tableView.reloadData()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,8 +45,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             println(self.tableView.indexPathForSelectedRow())
             let thisTask = taskArray[indexPath!.row]
             detailVC.detailTaskModel = thisTask
+        } else if segue.identifier == "showTaskAdd" {
+            let addTaskVC: addTaskViewController = segue.destinationViewController as addTaskViewController
+            addTaskVC.mainVC = self
         }
     }
+    
+    @IBAction func addButtonTapped(sender: UIBarButtonItem) {
+        self.performSegueWithIdentifier("showTaskAdd", sender: self)
+    }
+    
+    
     
     // UITableViewDataSource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -67,6 +78,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         performSegueWithIdentifier("showTaskDetail", sender: self)
         
     }
+    
+    
     
 }
 
