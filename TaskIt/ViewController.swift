@@ -84,17 +84,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return "To Do"
+        
+        if fetchedResultsController.sections?.count == 1 {
+            let testTask:TaskModel = fetchedResultsController.fetchedObjects![0] as TaskModel
+            if testTask.completed == true { return "Completed" } else { return "To Do"}
         } else {
-            return "Completed"
+
+            if section == 0 {
+                return "To Do"
+            } else {
+                    return "Completed"
+            }
         }
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         let thisTask = fetchedResultsController.objectAtIndexPath(indexPath) as TaskModel
         
-        if indexPath.section == 0 {
+        if thisTask.completed == false {
             thisTask.completed = true
         } else {
             thisTask.completed = false
