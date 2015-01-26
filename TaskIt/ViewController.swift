@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, TaskDetailViewControllerDelegate, AddTaskViewControllerDelegate {
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -46,9 +46,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let indexPath = self.tableView.indexPathForSelectedRow()
             let thisTask = fetchedResultsController.objectAtIndexPath(indexPath!) as TaskModel
             detailVC.detailTaskModel = thisTask
+            detailVC.delegate = self
             
         } else if segue.identifier == "showTaskAdd" {
             let addTaskVC: addTaskViewController = segue.destinationViewController as addTaskViewController
+            addTaskVC.delegate = self
         }
     }
     
@@ -123,33 +125,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
     
-//    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
-//        let thisTask = self.baseArray[indexPath.section][indexPath.row]
-//        var newTask = TaskModel(task: thisTask.task, subTask: thisTask.subTask, date: thisTask.date, completed: !thisTask.completed)
-//        
-//        var completeAction:UITableViewRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Complete", handler: { (tvra:UITableViewRowAction!, indexPath:NSIndexPath!) -> Void in
-//            self.baseArray[indexPath.section].removeAtIndex(indexPath.row)
-//            self.baseArray[1].append(newTask)
-//            self.tableView.reloadData()
-//        })
-//        completeAction.backgroundColor = UIColor.lightGrayColor()
-//        
-//        
-//        var uncompleteAction:UITableViewRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Uncomplete", handler: { (tvra:UITableViewRowAction!, indexPath:NSIndexPath!) -> Void in
-//            
-//            self.baseArray[indexPath.section].removeAtIndex(indexPath.row)
-//            self.baseArray[0].append(newTask)
-//            self.tableView.reloadData()
-//        })
-//        uncompleteAction.backgroundColor = UIColor.redColor();
-//        
-//        if indexPath.section == 0 {
-//            return [completeAction]
-//        } else {
-//            return [uncompleteAction]
-//        }
-//    }
-    
     func taskFetchRequest() -> NSFetchRequest {
         let  fetchRequest = NSFetchRequest(entityName: "TaskModel")
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
@@ -165,8 +140,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return fetchedResultsController
     }
     
+    func taskDetailEdited() {
+        showAlert()
+    }
     
+    func showAlert (message:String = "Congratulations") {
+        var alert = UIAlertController(title: "Change Made!", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
     
+    func addTask(message: String) {
+        showAlert(message: message)
+    }
+    
+    func addTaskCanceled(message: String) {
+        showAlert(message: message)
+    }
     
 }
 
