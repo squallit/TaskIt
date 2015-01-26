@@ -24,6 +24,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "Background")!)
+        
+        
         fetchedResultsController = getFetchedResultController()
         fetchedResultsController.delegate = self
         fetchedResultsController.performFetch(nil)
@@ -61,6 +64,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     // UITableViewDataSource
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.backgroundColor = UIColor.clearColor()
+    }
+    
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return fetchedResultsController.sections!.count
     }
