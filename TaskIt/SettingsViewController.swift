@@ -36,8 +36,8 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         self.capitalizeTableView.scrollEnabled = false
         
         self.title = "Settings"
-        self.versionLabel.text = kVersionNumber
-        
+//        self.versionLabel.text = kVersionNumber
+               
         var doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("doneBarButtonItemPressed:"))
         self.navigationItem.leftBarButtonItem = doneButton
     }
